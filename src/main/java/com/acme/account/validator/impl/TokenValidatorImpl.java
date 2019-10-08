@@ -16,6 +16,9 @@ import org.springframework.stereotype.Component;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+/**
+ * Token validator
+ */
 @Component
 public class TokenValidatorImpl implements ConstraintValidator<TokenValidator, DecreaseRequestDto> {
 
@@ -26,6 +29,13 @@ public class TokenValidatorImpl implements ConstraintValidator<TokenValidator, D
   public void initialize(TokenValidator constraintAnnotation) {
   }
 
+  /**
+   * Checks if the token is valid
+   *
+   * @param decreaseRequestDto value with token
+   * @param constraintValidatorContext validation context
+   * @return true if token exists
+   */
   @Override
   public boolean isValid(DecreaseRequestDto decreaseRequestDto, ConstraintValidatorContext constraintValidatorContext) {
     return tokenService.isTokenValid(decreaseRequestDto.getToken());

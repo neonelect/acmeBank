@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Token request endpoint
+ */
 @RestController
 @RequestMapping("/tokens/user")
 @Validated
@@ -21,6 +24,12 @@ public class TokenController extends AbstractRestController {
   @Autowired
   private TokenService tokenService;
 
+  /**
+   * Returns generated token for given user
+   *
+   * @param userId proper user ID
+   * @return generated token
+   */
   @PostMapping(value = "/{userId}", produces = "application/json")
   public ResponseEntity<TokenDto> getToken(@PathVariable @UserValidator String userId){
     return createResponse(

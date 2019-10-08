@@ -11,6 +11,9 @@ import java.lang.annotation.Target;
 import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
+/**
+ * User validator annotation
+ */
 @Target({ PARAMETER })
 @Retention(RUNTIME)
 @Constraint(validatedBy = UserValidatorImpl.class)

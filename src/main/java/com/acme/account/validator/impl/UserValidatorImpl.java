@@ -10,13 +10,14 @@ package com.acme.account.validator.impl;
 import com.acme.account.service.AccountService;
 import com.acme.account.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+/**
+ * User validator
+ */
 @Component
 public class UserValidatorImpl implements ConstraintValidator<UserValidator, String> {
 
@@ -27,8 +28,15 @@ public class UserValidatorImpl implements ConstraintValidator<UserValidator, Str
   public void initialize(UserValidator constraintAnnotation) {
   }
 
+  /**
+   * Checks if user is valid
+   *
+   * @param userId proper user ID
+   * @param constraintValidatorContext validation context
+   * @return true if user has an account
+   */
   @Override
-  public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
-    return accountService.userExists(s);
+  public boolean isValid(String userId, ConstraintValidatorContext constraintValidatorContext) {
+    return accountService.userExists(userId);
   }
 }

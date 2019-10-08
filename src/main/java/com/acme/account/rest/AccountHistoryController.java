@@ -9,6 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Account history endpoint class.
+ */
 @RestController
 @RequestMapping("/history")
 @Validated
@@ -17,6 +20,12 @@ public class AccountHistoryController extends AbstractRestController {
   @Autowired
   private AccountService accountService;
 
+  /**
+   * Gets users historical operations
+   *
+   * @param userId proper user ID
+   * @return list of transactions made by the user
+   */
   @GetMapping(value = "/user/{userId}", produces = "application/json")
   @ExceptionHandler({UserWithoutHistoryException.class})
   public ResponseEntity getUserTransactionHistory(@PathVariable @UserValidator String userId){

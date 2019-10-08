@@ -13,6 +13,9 @@ import java.lang.annotation.Target;
 import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
+/**
+ * Token validator annotation
+ */
 @Target({ PARAMETER })
 @Retention(RUNTIME)
 @Constraint(validatedBy = TokenValidatorImpl.class)

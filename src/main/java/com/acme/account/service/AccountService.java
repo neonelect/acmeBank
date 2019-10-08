@@ -22,6 +22,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import static com.acme.account.dto.TransactionType.DECREASE;
 import static com.acme.account.dto.TransactionType.INCREASE;
 
+/**
+ * Service for account operations
+ */
 @Service
 public class AccountService {
 
@@ -39,15 +42,33 @@ public class AccountService {
     accounts.put("user4", 10000f);
   }
 
+  /**
+   * Returns user balance
+   *
+   * @param userId proper user ID
+   * @return balance
+   */
   public float getUserBalance(String userId){
     return accounts.get(userId);
   }
 
+  /**
+   * Increases users balance by the given amount
+   *
+   * @param userId proper user ID
+   * @param value increase value
+   */
   public void increaseUserBalance(String userId, float value){
     accounts.put(userId, accounts.get(userId) + value);
     addToHistory(userId, getTransactionObject(INCREASE, value));
   }
 
+  /**
+   * Decreases users balance by the given amount
+   *
+   * @param userId proper user ID
+   * @param decreaseRequestDto decrease value with token
+   */
   public void decreaseUserBalance(String userId, DecreaseRequestDto decreaseRequestDto){
     Float balance = accounts.get(userId);
     DecreaseOperationPO po = new DecreaseOperationPO(userId, balance, decreaseRequestDto);
@@ -61,11 +82,23 @@ public class AccountService {
     } else throw new BadTokenException();
   }
 
+  /**
+   * Returns list of historical transactions
+   *
+   * @param userId proper user ID
+   * @return list of transactions
+   */
   public List<TransactionDto> getUserTransactionHistory(String userId){
     if(transactionHistory.containsKey(userId)) return transactionHistory.get(userId);
     else throw new UserWithoutHistoryException();
   }
 
+  /**
+   * Checks if given user exists
+   *
+   * @param userId proper user ID
+   * @return true if user exists
+   */
   public boolean userExists(String userId){
     return accounts.containsKey(userId);
   }
@@ -91,6 +124,9 @@ public class AccountService {
     return TransactionDto.builder().type(type).value(value).build();
   }
 
+  /**
+   * Parameter object for decrease operation
+   */
   @Getter
   @AllArgsConstructor
   private class DecreaseOperationPO {
